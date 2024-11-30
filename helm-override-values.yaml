@@ -1,0 +1,7 @@
+dags:
+  # Where dags volume will be mounted. Works for both persistence and gitSync.
+  # If not specified, dags mount path will be set to $AIRFLOW_HOME/dags
+  mountPath: ~
+  persistence:
+    # Enable persistent volume for storing dags
+    enabled: true
