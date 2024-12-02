@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: insert2db
+  name: insert2db
+spec:
+  containers:
+  - image: kiarashz/insert-db-record:latest
+    name: insert2db
+    command: ["python", "app.py"]
+    args:
+      - --draw_number=123
+      - --draw_date=2023-12-01
+      - --draw_result=5,12,23,34,45,47,1
+    envFrom:
+      - secretRef:
+          name: postgres-credentials
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}

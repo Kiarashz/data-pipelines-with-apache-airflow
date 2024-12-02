@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: insert2db-job
+spec:
+  template:
+    metadata:
+      labels:
+        run: insert2db
+    spec:
+      containers:
+      - image: kiarashz/insert-db-record:latest
+        name: insert2db
+        command: ["python", "app.py"]
+        args:
+          - --draw_number=123
+          - --draw_date=2023-12-01
+          - --draw_result=5,12,23,34,45,47,1
+        envFrom:
+          - secretRef:
+              name: postgres-credentials
+        resources: {}
+      restartPolicy: Never
+  backoffLimit: 4  # Number of retries before considering the Job as failed
