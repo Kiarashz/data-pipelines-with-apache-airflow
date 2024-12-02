@@ -47,10 +47,14 @@ def validate_arguments(args):
     elif args["--draw_object"]:
         try:
             draw_object = json.loads(args["--draw_object"].replace("'", '"'))
+            draw_number = draw_object["draw_number"]
+            draw_date = draw_object["draw_date"]
+            draw_result = draw_object["draw_result"]
             # validate draw object
             if draw_number <= 0:
                 raise ValueError("Draw number must be a positive integer.")
-            draw_date = datetime.strptime(draw_object["draw_date"], "%Y-%m-%d").date()
+            # throws exception if not valid
+            draw_date = datetime.strptime(draw_date, "%Y-%m-%d").date()
             if len(draw_result) != 7:
                 raise ValueError("Draw result must have 7 numbers.")
         except ValueError as e:
